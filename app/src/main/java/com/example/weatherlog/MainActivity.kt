@@ -24,7 +24,10 @@ class MainActivity : AppCompatActivity(), CityListAdapter.RecyclerViewItemClick 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        val linearLayoutManager = LinearLayoutManager(this)
+        linearLayoutManager.stackFromEnd = false
+        recyclerView.layoutManager = linearLayoutManager
+
         cityListAdapter = CityListAdapter()
         recyclerView.adapter = cityListAdapter
 
