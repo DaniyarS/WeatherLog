@@ -36,7 +36,6 @@ class MainActivity : AppCompatActivity(), CityListAdapter.RecyclerViewItemClick 
         weatherViewModel.getAllWeather().observe(this, Observer{
             cityListAdapter.weatherData = it
             cityListAdapter.notifyDataSetChanged()
-
         })
 
         floatingSaveButton.setOnClickListener {
@@ -45,12 +44,8 @@ class MainActivity : AppCompatActivity(), CityListAdapter.RecyclerViewItemClick 
     }
 
     override fun itemClick(position: Int, item: Weather?) {
-        val intent = Intent(applicationContext, WeatherDetailsActivity::class.java)
-        intent.putExtra("cityName", item?.cityName)
-        intent.putExtra("weather", item?.weather)
-        intent.putExtra("temp", item?.temp)
-        intent.putExtra("feelsLike", item?.feelsLike)
-        intent.putExtra("pressure", item?.pressure)
+        val intent = Intent(this, WeatherDetailsActivity::class.java)
+        intent.putExtra(WEATHER_KEY, item)
         startActivity(intent)
     }
 }
