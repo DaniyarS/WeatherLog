@@ -1,9 +1,11 @@
 package com.example.weatherlog.database
 
 import android.content.Context
+import android.os.AsyncTask
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.weatherlog.model.Weather
 
 
@@ -23,11 +25,23 @@ abstract class WeatherDatabase : RoomDatabase() {
                     WeatherDatabase::class.java,
                     "weather.db"
                 )
-                    .fallbackToDestructiveMigration()
                     .allowMainThreadQueries()
                     .build()
             }
             return INSTANCE!!
         }
     }
+
+//    inner class roomCallBack: RoomDatabase.Callback() {
+//        override fun onCreate(db: SupportSQLiteDatabase) {
+//            super.onCreate(db)
+//            populateDbAsyncTask().
+//        }
+//    }
+//
+//    inner class populateDbAsyncTask: AsyncTask<Void, Void, Void>() {
+//        override fun doInBackground(vararg params: Void?): Void? {
+//            return null
+//        }
+//    }
 }
