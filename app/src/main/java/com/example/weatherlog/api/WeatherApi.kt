@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface WeatherApi {
     @GET("data/2.5/weather?")
-    fun getMain(
+    suspend fun getMain(
         @Query("q") cityName: String?,
         @Query("APPID") appId: String
     ) : Response<WeatherResponse>

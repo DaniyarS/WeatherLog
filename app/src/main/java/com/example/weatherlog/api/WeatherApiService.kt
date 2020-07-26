@@ -11,7 +11,6 @@ object WeatherApiService {
     fun getWeatherApi(): WeatherApi {
         val retrofit = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .baseUrl(BASE_URL)
             .build()
         return retrofit.create(WeatherApi::class.java)
