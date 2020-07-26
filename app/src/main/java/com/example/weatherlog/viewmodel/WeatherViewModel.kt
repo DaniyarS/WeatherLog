@@ -2,11 +2,8 @@ package com.example.weatherlog.viewmodel
 
 import android.app.Application
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.weatherlog.WeatherRepository
 import com.example.weatherlog.model.Weather
 import com.example.weatherlog.api.WeatherApiService
@@ -19,7 +16,7 @@ private const val WEATHER_API_KEY = "95f030374fc4e045e0c947058469c373"
 
 class WeatherViewModel(application: Application) : AndroidViewModel(application), CoroutineScope {
 
-    private val repository =  WeatherRepository(application)
+    private val repository = WeatherRepository(application)
     private val allWeather = repository.getAllWeather()
     private val job = Job()
 
@@ -43,10 +40,11 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
                         .getWeatherApi()
                         .getMain(
                             "Almaty,KZ",
-                            WEATHER_API_KEY)
-
+                            WEATHER_API_KEY
+                        )
+                    val weather = Weather()
                     if (response.isSuccessful) {
-                        val weather = Weather()
+
                         val result = response.body()
 
                         weather.cityName = result?.name
@@ -55,10 +53,8 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
                         weather.feelsLike = result?.main?.feelsLike.toString()
                         weather.pressure = result?.main?.pressure.toString()
                         weather.time = time.toString()
-                        insertWeather(weather)
-                    } else {
-                        getAllWeather()
                     }
+                    insertWeather(weather)
                 } catch (e: Exception) {
                     Log.d("error", e.printStackTrace().toString())
                 }
