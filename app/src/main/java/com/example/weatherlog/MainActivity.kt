@@ -1,12 +1,10 @@
 package com.example.weatherlog
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weatherlog.adapter.CityListAdapter
 import com.example.weatherlog.model.Weather
@@ -34,6 +32,8 @@ class MainActivity : AppCompatActivity(), CityListAdapter.RecyclerViewItemClick 
         weatherViewModel = ViewModelProvider(this, viewModelFactory).get(WeatherViewModel::class.java)
         weatherViewModel.getAllWeather().observe(this, Observer{
             cityListAdapter.weatherData = it
+            cityListAdapter.notifyDataSetChanged()
+
         })
 
         floatingSaveButton.setOnClickListener {
@@ -42,10 +42,12 @@ class MainActivity : AppCompatActivity(), CityListAdapter.RecyclerViewItemClick 
     }
 
     override fun itemClick(position: Int, item: Weather?) {
-        val intent = Intent(this, WeatherDetailsActivity::class.java)
-        intent.putExtra(WEATHER_KEY, item)
+        val intent = Intent(applicationContext, WeatherDetailsActivity::class.java)
+        intent.putExtra("cityName", item?.cityName)
+        intent.putExtra("weather", item?.weather)
+        intent.putExtra("temp", item?.temp)
+        intent.putExtra("feelsLike", item?.feelsLike)
+        intent.putExtra("pressure", item?.pressure)
         startActivity(intent)
     }
-
-
 }
