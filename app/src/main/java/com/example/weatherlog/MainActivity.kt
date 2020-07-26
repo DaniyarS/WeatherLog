@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity(), CityListAdapter.RecyclerViewItemClick 
         linearLayoutManager.stackFromEnd = false
         recyclerView.layoutManager = linearLayoutManager
 
-        cityListAdapter = CityListAdapter()
+        cityListAdapter = CityListAdapter(itemClickListener = this)
         recyclerView.adapter = cityListAdapter
 
         viewModelFactory = ViewModelProviderFactory(application)
